@@ -40,19 +40,14 @@ class PlaceDoc: NSObject {
     }
     
     convenience init?(aDoc doc:CDTDocumentRevision) {
-        if let body = doc.body {
-            var geometry: [String:AnyObject]? = body["geometry"] as? [String:AnyObject]
-            var coordinates: [Double]? = geometry!["coordinates"] as? [Double]
-            let latitude: Double = coordinates![1]
-            let longitude: Double = coordinates![0]
-            let name: String? = body["name"] as? String
-            let timestamp: Double? = body["created_at"] as? Double
-            self.init(docId: doc.docId, latitude: latitude, longitude: longitude, name: name!, timestamp: NSDate(timeIntervalSince1970: Double(timestamp!)/1000.0))
-        }
-        else {
-            print("Error initializing place from document: \(doc)")
-            return nil
-        }
+        let body = doc.body
+        var geometry: [String:AnyObject]? = body["geometry"] as? [String:AnyObject]
+        var coordinates: [Double]? = geometry!["coordinates"] as? [Double]
+        let latitude: Double = coordinates![1]
+        let longitude: Double = coordinates![0]
+        let name: String? = body["name"] as? String
+        let timestamp: Double? = body["created_at"] as? Double
+        self.init(docId: doc.docId, latitude: latitude, longitude: longitude, name: name!, timestamp: NSDate(timeIntervalSince1970: Double(timestamp!)/1000.0))
     }
     
     func toDictionary() -> [String:AnyObject] {

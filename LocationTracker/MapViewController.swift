@@ -179,9 +179,11 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
         // reset map zoom
         self.resetMapZoom(locationDoc)
         // save location to datastore
-        if (createLocationDoc(locationDoc)) {
-            syncLocations(.Push)
-        }
+        // mw:start
+        //if (createLocationDoc(locationDoc)) {
+        //    syncLocations(.Push)
+        //}
+        // mw:end
         // sync places based on latest location
         self.getPlaces(locationDoc)
     }
@@ -295,7 +297,7 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
         let storeURL = documentsDir.URLByAppendingPathComponent("locationtracker")
         let path = storeURL.path
         do {
-            datastoreManager = try CDTDatastoreManager(directory: path)
+            datastoreManager = try CDTDatastoreManager(directory: path!)
             
         } catch {
             fatalError("Failed to initialize datastore: \(error)")
@@ -332,7 +334,7 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
                 }
             }
         }
-        let rev = CDTDocumentRevision(docId: placeDoc.docId)
+        let rev = CDTDocumentRevision(docId: placeDoc.docId!)
         rev.body = NSMutableDictionary(dictionary:placeDoc.toDictionary())
         do {
             try placeDatastore!.createDocumentFromRevision(rev)
@@ -429,7 +431,13 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
                 }
             }
         }
-        let rev = CDTDocumentRevision(docId: locationDoc.docId)
+        var rev = CDTDocumentRevision()
+        if (locationDoc.docId != nil) {
+            rev = CDTDocumentRevision(docId:locationDoc.docId!)
+        }
+        else {
+            rev = CDTDocumentRevision()
+        }
         rev.body = NSMutableDictionary(dictionary:locationDoc.toDictionary())
         do {
             try locationDatastore!.createDocumentFromRevision(rev)
@@ -471,7 +479,7 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
     func locationCloudantURL() -> NSURL {
         // NOTE: Set the URL as follows if syncing directly with Cloudant
         let credentials = "\(AppState.locationDbApiKey!):\(AppState.locationDbApiPassword!)"
-        let url = "https://\(credentials)@\(AppState.locationDbHost!)/\(AppState.locationDbName!)"
+        let url = "http://\(credentials)@\(AppState.locationDbHost!)/\(AppState.locationDbName!)"
         return NSURL(string: url)!
     }
     
@@ -485,7 +493,7 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
                 return
             }
             
-            let factory = CDTReplicatorFactory(datastoreManager: self.datastoreManager)
+            let factory = CDTReplicatorFactory(datastoreManager: self.datastoreManager!)
             
             let job = (direction == .Push)
                 ? CDTPushReplication(source: self.locationDatastore!, target: self.locationCloudantURL())

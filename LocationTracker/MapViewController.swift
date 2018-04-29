@@ -180,12 +180,12 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
         self.resetMapZoom(locationDoc)
         // save location to datastore
         // mw:start
-        //if (createLocationDoc(locationDoc)) {
-        //    syncLocations(.Push)
-        //}
+//        if (createLocationDoc(locationDoc)) {
+//            syncLocations(.Push)
+//        }
         // mw:end
         // sync places based on latest location
-        self.getPlaces(locationDoc)
+        //self.getPlaces(locationDoc)
     }
     
     // MARK: Map Locations
@@ -322,8 +322,8 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
     func createPlaceDoc(placeDoc: PlaceDoc) -> Bool {
         if let docId = placeDoc.docId {
             do {
+                // skip if document already exists
                 try placeDatastore!.getDocumentWithId(docId)
-                print("Skip \(docId) creation: already exists")
                 return false
             }
             catch let error as NSError {
@@ -419,8 +419,8 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
     func createLocationDoc(locationDoc: LocationDoc) -> Bool {
         if let docId = locationDoc.docId {
             do {
+                // skip if document already exists
                 try locationDatastore!.getDocumentWithId(docId)
-                print("Skip \(docId) creation: already exists")
                 return false
             }
             catch let error as NSError {
@@ -495,9 +495,16 @@ class MapViewController: UIViewController, LocationMonitorDelegate, CDTHTTPInter
             
             let factory = CDTReplicatorFactory(datastoreManager: self.datastoreManager!)
             
-            let job = (direction == .Push)
-                ? CDTPushReplication(source: self.locationDatastore!, target: self.locationCloudantURL())
-                : CDTPullReplication(source: self.locationCloudantURL(), target: self.locationDatastore!)
+            var job : CDTAbstractReplication;
+            if (direction == .Push) {
+                job = CDTPushReplication(source: self.locationDatastore!, target: self.locationCloudantURL())
+            }
+            else {
+                job = CDTPullReplication(source: self.locationCloudantURL(), target: self.locationDatastore!)
+                (job as! CDTPullReplication).activeDocStrategy = true
+                (job as! CDTPullReplication).activeDocFetcher = MyActiveDocFetcher()
+            }
+            
             job.addInterceptor(self)
             
             do {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AE7897D493699C4EF532FEFF /* libPods-LocationTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0753A7905869B8709A13D2B4 /* libPods-LocationTracker.a */; };
+		D70B0E821D258F15001F88D4 /* MyActiveDocFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B0E811D258F15001F88D4 /* MyActiveDocFetcher.swift */; };
 		D74B9CD61CB5559400C4777E /* UsernamePasswordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B9CD51CB5559400C4777E /* UsernamePasswordStore.swift */; };
 		D74B9CDA1CB5928B00C4777E /* LocationDbInfoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B9CD91CB5928B00C4777E /* LocationDbInfoStore.swift */; };
 		D74B9CDD1CB5A63B00C4777E /* PlaceDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B9CDC1CB5A63B00C4777E /* PlaceDoc.swift */; };
@@ -54,6 +55,7 @@
 		0753A7905869B8709A13D2B4 /* libPods-LocationTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LocationTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C03395F2E3CFDF8D985CB13 /* Pods-LocationTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocationTracker/Pods-LocationTracker.release.xcconfig"; sourceTree = "<group>"; };
 		3AFF1AAAA5C348F104651949 /* Pods-LocationTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocationTracker/Pods-LocationTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		D70B0E811D258F15001F88D4 /* MyActiveDocFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyActiveDocFetcher.swift; sourceTree = "<group>"; };
 		D74B9CD51CB5559400C4777E /* UsernamePasswordStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernamePasswordStore.swift; sourceTree = "<group>"; };
 		D74B9CD91CB5928B00C4777E /* LocationDbInfoStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDbInfoStore.swift; sourceTree = "<group>"; };
 		D74B9CDC1CB5A63B00C4777E /* PlaceDoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDoc.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				D77BE1881CB2DABB0093B698 /* Main.storyboard */,
 				D77BE18B1CB2DABB0093B698 /* Assets.xcassets */,
 				D77BE1901CB2DABB0093B698 /* Info.plist */,
+				D70B0E811D258F15001F88D4 /* MyActiveDocFetcher.swift */,
 			);
 			path = LocationTracker;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				D74FAAC71CBD82E3008F8176 /* MapKitMapPin.swift in Sources */,
 				D74B9CDA1CB5928B00C4777E /* LocationDbInfoStore.swift in Sources */,
 				D77BE1B81CB31A540093B698 /* LocationDoc.swift in Sources */,
+				D70B0E821D258F15001F88D4 /* MyActiveDocFetcher.swift in Sources */,
 				D78EFFCC1CC2B12F008D3148 /* LocationMonitor.swift in Sources */,
 				D78EFFCF1CC2B25D008D3148 /* LocationMonitorDelegate.swift in Sources */,
 				D77BE1BD1CB43B0B0093B698 /* AppState.swift in Sources */,
